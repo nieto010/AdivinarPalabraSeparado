@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Adivina Palabras</string>
+    <string name="ingresar_letra">Ingresar letra</string>
+    <string name="adivinar">ADIVINAR</string>
+    <string name="nueva_partida">NUEVA PARTIDA</string>
+</resources>

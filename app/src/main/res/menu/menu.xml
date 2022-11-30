@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/verPalabra"
+        android:title="Ver Palabra" />
+    <item
+        android:id="@+id/agregarPalabra"
+        android:title="Agregar Nueva Palabra" />
+    <item
+        android:id="@+id/mostrarPalabras"
+        android:title="Mostrar Palabras" />
+     <!--<item
+        android:id="@+id/importarPalabras"
+        android:title="Importar Palabras" />
+    <item
+        android:id="@+id/exportarPalabras"
+        android:title="Exportar Palabras" />-->
+    <item
+        android:id="@+id/importar"
+        android:title="Importaciones">
+            <menu>
+                <item
+                    android:id="@+id/importarPalabras"
+                    android:title="TXT" />
+                <item
+                    android:id="@+id/importarPalabrasObjetos"
+                    android:title="Objetos" />
+                <item
+                    android:id="@+id/importarPalabrasMySQLite"
+                    android:title="MySQLite" />
+                <item
+                    android:id="@+id/importarPalabrasMongoDB"
+                    android:title="MongoDB" />
+
+            </menu>
+    </item>
+    <item
+        android:id="@+id/exportaciones"
+        android:title="Exportaciones">
+        <menu>
+            <item
+                android:id="@+id/exportarPalabras"
+                android:title="TXT" />
+
+            <item
+                android:id="@+id/exportarPalabrasObjetos"
+                android:title="Objetos" />
+            <item
+                android:id="@+id/exportarPalabrasMySQLite"
+                android:title="MySQLite" />
+        </menu>
+    </item>
+
+
+
+
+
+
+
+
+    <item
+        android:id="@+id/salir"
+        android:title="Salir" />
+</menu>
