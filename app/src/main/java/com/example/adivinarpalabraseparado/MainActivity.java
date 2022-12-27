@@ -32,6 +32,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +47,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             p = new Partida(palabrasInicio);
             iniciarJuego();
         }
+        getJSON("http://192.168.56.1/php/leerPalabras.php");
 
 
     }
@@ -145,7 +149,8 @@ public class MainActivity extends AppCompatActivity {
             botonAdivinar.setEnabled(false);
         }
         if (p.terminarPartida() == 0) {
-            Toast.makeText(getApplicationContext(), "Has ganado la partida", Toast.LENGTH_LONG).show();
+            int intentosUtilizados = p.getLetras().length / 2 - p.getIntentos();
+            Toast.makeText(getApplicationContext(), "Has ganado la partida\nHas utilizado " + intentosUtilizados + " intentos", Toast.LENGTH_LONG).show();
             botonAdivinar.setEnabled(false);
         }
     }
@@ -334,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void salir() {
-        finish();
+        finishAffinity();
     }
 
 
@@ -450,5 +455,62 @@ public class MainActivity extends AppCompatActivity {
         //creating asynctask object and executing it
         GetMONGO getMongo = new GetMONGO();
         getMongo.execute();
+    }
+
+    private void getJSON(final String urlWebService) {
+
+        class GetJSON extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                try {
+                    loadIntoListView(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(urlWebService);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
+                    }
+                    return sb.toString().trim();
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        GetJSON getJSON = new GetJSON();
+        getJSON.execute();
+    }
+
+    private void loadIntoListView(String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        String[] descripcion = new String[jsonArray.length()];
+        String[] nombre = new String[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+            descripcion[i] = obj.getString("definicion");
+            nombre[i] = obj.getString("palabra");
+
+            Palabra palabra = new Palabra(nombre[i].toUpperCase(), descripcion[i]);
+            p.palabras.add(palabra);
+            palabrasDisponibles.setText("Palabras disponibles: " + p.palabras.size());
+        }
     }
 }

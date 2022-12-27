@@ -25,8 +25,8 @@ public class FormularioPalabras extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_palabras);
 
-        nombre = findViewById(R.id.nombrePalabraEditText);
-        descripcion = findViewById(R.id.descripcionPalabraEditText);
+        nombre = findViewById(R.id.nombrePalabraEditText2);
+        descripcion = findViewById(R.id.descripcionPalabraEditText2);
         Intent i = getIntent();
         try {
             partida = (Partida) i.getSerializableExtra("partida");
@@ -43,8 +43,8 @@ public class FormularioPalabras extends AppCompatActivity {
 
     @SuppressLint("SuspiciousIndentation")
     public void eliminarPalabra(View vista) {
-        nombre = findViewById(R.id.nombrePalabraEditText);
-        descripcion = findViewById(R.id.descripcionPalabraEditText);
+        nombre = findViewById(R.id.nombrePalabraEditText2);
+        descripcion = findViewById(R.id.descripcionPalabraEditText2);
         if (!nombre.getText().toString().equalsIgnoreCase("") && !descripcion.getText().toString().equalsIgnoreCase("")) {
             for (int i = 0; i < partida.getPalabras().size(); i++) {
                 if (partida.getPalabras().get(i).getNombre().equals(nombre.getText().toString().toUpperCase())) {
@@ -59,8 +59,8 @@ public class FormularioPalabras extends AppCompatActivity {
     }
 
     public void modificarPalabra(View vista) {
-        nombre = findViewById(R.id.nombrePalabraEditText);
-        descripcion = findViewById(R.id.descripcionPalabraEditText);
+        nombre = findViewById(R.id.nombrePalabraEditText2);
+        descripcion = findViewById(R.id.descripcionPalabraEditText2);
         if (!nombre.getText().toString().equalsIgnoreCase("") && !descripcion.getText().toString().equalsIgnoreCase("")) {
             for (int i = 0; i < partida.getPalabras().size(); i++) {
                 if (partida.getPalabras().get(i).getNombre().equals(nombre.getText().toString().toUpperCase())) {
@@ -77,8 +77,8 @@ public class FormularioPalabras extends AppCompatActivity {
     }
 
     public void agregarPalabra(View vista) {
-        nombre = findViewById(R.id.nombrePalabraEditText);
-        descripcion = findViewById(R.id.descripcionPalabraEditText);
+        nombre = findViewById(R.id.nombrePalabraEditText2);
+        descripcion = findViewById(R.id.descripcionPalabraEditText2);
         if (!nombre.getText().toString().equalsIgnoreCase("") && !descripcion.getText().toString().equalsIgnoreCase("")) {
             partida.palabras.add(new Palabra(nombre.getText().toString().toUpperCase(), descripcion.getText().toString()));
         } else {

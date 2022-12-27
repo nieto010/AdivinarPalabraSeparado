@@ -73,6 +73,12 @@ public class EditarPalabras extends Activity {
         startActivity(i);
     }
 
+    public void administrarMySQL(View vista) {
+        Intent i = new Intent(this, FormularioPalabrasMongoDB.class);
+        i.putExtra("partida", partida);
+        startActivity(i);
+    }
+
     public void borrarTodo(View vista) {
         partida.palabras.clear();
         lista.setAdapter(null);
